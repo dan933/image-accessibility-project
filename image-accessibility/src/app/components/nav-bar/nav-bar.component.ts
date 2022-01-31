@@ -15,6 +15,12 @@ export class NavBarComponent implements OnInit {
   toggleMenu(hamburgerButton: HTMLElement) {
     hamburgerButton.classList.toggle("change");
 
+    let background: HTMLStyleElement = document.querySelector('.compact-nav-background')!;
+    background.style.opacity = background.style.opacity === '1' ? '0' :'1';
+
+    let subMenu: HTMLStyleElement = document.querySelector('.compact-sub-menu')!;
+    subMenu.style.opacity = subMenu.style.opacity === '1' ? '0' :'1';
+
   }
 
 }
