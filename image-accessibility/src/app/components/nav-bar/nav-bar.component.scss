@@ -1,0 +1,30 @@
+nav{
+  background-color: rgba(0, 0, 255, 0.698);
+  width: 100vw;
+  height: 30px;
+  box-shadow: 0 4px 2px 0px rgba(0,0,0,.2);
+
+  @media screen and (max-width:233px) {
+    &{
+      height: 70px;
+    }
+
+  }
+
+  span.nav-header{
+    font-size: 15px;
+    padding-top: 5px;
+    display: inline-block;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    padding-left: 15px !important;
+    vertical-align: middle;
+
+    @media screen and (max-width:233px) {
+      &{
+        font-size: 15px;
+        padding-left: 5px !important;
+      }
+    }
+  }
+}
