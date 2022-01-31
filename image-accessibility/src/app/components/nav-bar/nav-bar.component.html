@@ -1,3 +1,21 @@
-<nav>
+<nav class="normal-nav">
   <span class="nav-header">Image Accessibility Application</span>
+  <br>
+  <button routerLink='/images' routerLinkActive="activebutton" class="nav-button">Images</button>
 </nav>
+
+<nav class="compact-nav">
+  <div class="icon" #compactNav (click)="toggleMenu(compactNav)">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+
+  <span class="nav-compact-header">Image Accessibility Application</span>
+</nav>
+
+<div class="compact-nav-background"></div>
+
+<div class="compact-sub-menu">
+  <button routerLink='/images' routerLinkActive="activebutton" class="nav-button">Images</button>
+</div>

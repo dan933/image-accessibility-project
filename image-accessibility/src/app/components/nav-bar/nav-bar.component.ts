@@ -12,4 +12,9 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  toggleMenu(hamburgerButton: HTMLElement) {
+    hamburgerButton.classList.toggle("change");
+
+  }
+
 }

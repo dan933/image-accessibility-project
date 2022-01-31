@@ -4,7 +4,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ImagePageComponent } from './components/image-page/image-page.component';
 
 const routes: Routes = [
-  {path: 'images', component: ImagePageComponent }
+  { path: 'images', component: ImagePageComponent },
+  {path: '', redirectTo: '/images', pathMatch: 'full'},
 ];
 
 @NgModule({

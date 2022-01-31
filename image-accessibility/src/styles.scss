@@ -3,3 +3,18 @@ body{
   margin-left: 0px;
   margin-right: 0px;
 }
+
+
+.page-container{
+  padding-top:70px;
+  margin-left: 10px;
+  z-index: 1;
+
+
+  @media screen and (max-width:233px) {
+    &{
+      padding-top: 80px;
+    }
+
+  }
+}
