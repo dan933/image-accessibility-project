@@ -16,10 +16,27 @@ export class NavBarComponent implements OnInit {
     hamburgerButton.classList.toggle("change");
 
     let background: HTMLStyleElement = document.querySelector('.compact-nav-background')!;
-    background.style.opacity = background.style.opacity === '1' ? '0' :'1';
+
+    if (background.style.opacity == '1') {
+      background.style.visibility = 'hidden';
+      background.style.opacity = '0'
+
+    } else {
+      background.style.visibility = 'visible';
+      background.style.opacity = '1';
+    }
 
     let subMenu: HTMLStyleElement = document.querySelector('.compact-sub-menu')!;
-    subMenu.style.opacity = subMenu.style.opacity === '1' ? '0' :'1';
+    console.log(subMenu)
+
+    if (subMenu.style.opacity == '1') {
+      subMenu.style.opacity = '0'
+      subMenu.style.visibility = 'hidden';
+
+    } else {
+      subMenu.style.visibility = 'visible';
+      subMenu.style.opacity = '1';
+    }
 
   }
 
