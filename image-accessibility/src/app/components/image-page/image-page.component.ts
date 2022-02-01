@@ -12,4 +12,19 @@ export class ImagePageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  speech(image: HTMLElement) {
+    let soundToPlay = image.getAttribute('alt')!;
+    let speech = new SpeechSynthesisUtterance(soundToPlay);
+
+    speechSynthesis.speak(speech);
+
+    speechSynthesis.getVoices().forEach((voice) => {
+      console.log(voice)
+    });
+
+
+
+
+  }
+
 }

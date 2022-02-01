@@ -1,17 +1,17 @@
 nav{
 
     background-color: rgb(0, 0, 255);
+    height: 16.6vh;
     width: 100vw;
-    height: 25vh;
     position:fixed;
-    box-shadow: 0 4px 2px 0px rgba(0,0,0,.2);
+    box-shadow: 0vh 2vh 2vh 0px rgba(0,0,0,.2);
     z-index: 3 !important;
     display: block;
 
   &.normal-nav{
     display: none;
 
-    @media screen and (min-width:233px) {
+    @media screen and (min-width:463px) {
       &{
         display: block;
       }
@@ -28,9 +28,10 @@ nav{
     }
 
     button{
+      position:fixed;
       background-color: blue;
       color: white;
-      margin-top: 10.4vh;
+      margin-top: 2vh !important;
       font-size: 4vh;
       padding:1vh;
       border: 0.1vh solid rgb(0, 0, 255);
@@ -58,7 +59,7 @@ nav{
 
 
 
-    @media screen and (max-width:233px) {
+    @media screen and (max-width:463px) {
       &{
         display: block;
       }
@@ -66,8 +67,8 @@ nav{
 
     span.nav-compact-header{
       font-size:5vh;
-      padding-top: 5px;
-      padding-left: 5px;
+      padding-top: 0vh;
+      padding-left: 1vh;
       display: block;
       color: white;
       font-family: Arial, Helvetica, sans-serif;
@@ -81,22 +82,22 @@ nav{
       height: min-content;
 
       div.bar1, div.bar2, div.bar3{
-        width: 15px;
-        height: 2px;
+        width: 5vh;
+        height: 0.8vh;
         background-color: rgb(255, 255, 255);
-        margin: 3px 2px;
+        margin: 1vh 1vh;
         cursor:pointer;
-        transition: 0.4s;
+        transition: transform  0.4s;
       }
 
       &.change div.bar1 {
-        transform: rotate(-45deg) translate(-2px, 5px);
+        transform: rotate(-45deg) translate(-2vh, 2.4vh);
       }
 
       &.change div.bar2 {opacity: 0;}
 
       &.change div.bar3 {
-        transform: rotate(45deg) translate(-2px, -5px);
+        transform: rotate(45deg) translate(0vh, -0.5vh);
       }
     }
 
@@ -114,6 +115,12 @@ nav{
   background-color: #0009;
   visibility: hidden;
   opacity: 0;
+
+   @media screen and (min-width:463px) {
+    &{
+      visibility: hidden !important;
+    }
+  }
 }
 
 
@@ -127,7 +134,13 @@ nav{
   opacity: 0;
   display: block;
   visibility: hidden;
-  transition: all 0.4s ease-in-out;
+  transition: opacity 0.4s ease-in-out;
+
+  @media screen and (min-width:463px) {
+    &{
+      visibility: hidden !important;
+    }
+  }
 
   button{
     font-size: 12vw;
@@ -144,13 +157,6 @@ nav{
     &:hover{
       background-color: lightgray;
 
-    }
-
-  }
-
-  @media screen and (min-width:233px) {
-    &{
-      display: none;
     }
 
   }
