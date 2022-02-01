@@ -28,13 +28,15 @@ nav{
     }
 
     button{
-      position:fixed;
+      position:relative;
       background-color: blue;
       color: white;
-      margin-top: 2vh !important;
+      margin-top: 2.2vh !important;
+      margin-right: 0px !important;
       font-size: 4vh;
       padding:1vh;
-      border: 0.1vh solid rgb(0, 0, 255);
+      //border: 0.1vh solid blue;
+      border:none;
       border-radius: 0.5vh;
 
       &.activebutton{
