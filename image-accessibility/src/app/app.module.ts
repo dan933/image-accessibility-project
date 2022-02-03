@@ -5,16 +5,25 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ImagePageComponent } from './components/image-page/image-page.component';
+import { UploadPageComponent } from './components/upload-page/upload-page.component';
+import { DndDirective } from './directives/dnd.directive';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MaterialModule } from './modules/angular-modules';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavBarComponent,
-    ImagePageComponent
+    ImagePageComponent,
+    UploadPageComponent,
+    DndDirective
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

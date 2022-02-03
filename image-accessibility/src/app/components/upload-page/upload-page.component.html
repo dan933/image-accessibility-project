@@ -1,0 +1,10 @@
+<div class="page-container">
+  <div class="dropzone" appDnd>
+  <input type="file" #fileDropRef id="fileDropRef" multiple (change)="fileBrowseHandler($event)">
+  <mat-icon>cloud_upload</mat-icon>
+  <h3>Drop files here</h3>
+  <h3>or</h3>
+  <label for="fileDropRef">Browse for file</label>
+  </div>
+</div>
+
