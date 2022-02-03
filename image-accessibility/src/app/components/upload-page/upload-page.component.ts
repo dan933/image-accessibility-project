@@ -14,8 +14,12 @@ export class UploadPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  fileBrowseHandler(files: Event) {
-    console.log(files);
+  fileBrowseHandler(files:Event) {
+    const element = files.currentTarget as HTMLInputElement;
+    let fileList: FileList | null = element.files;
+    if (fileList) {
+      console.log("FileUpload -> files", fileList);
+    }
 
   }
 
