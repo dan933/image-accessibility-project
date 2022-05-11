@@ -40,6 +40,6 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: './build'
+    PathtoPublish: './image-accessibility/build'
     ArtifactName: 'drop'
     publishLocation: 'Container'
