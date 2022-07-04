@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImagePageComponent implements OnInit {
 
+  image!: any;
+
   constructor() { }
 
   speech_voices: any;
@@ -19,7 +21,9 @@ export class ImagePageComponent implements OnInit {
         speech_voices = window.speechSynthesis.getVoices();
       };
     }
-    console.log(speech_voices)
+  }
+
+  getPhoto() {
   }
 
   speech(image: HTMLElement) {
