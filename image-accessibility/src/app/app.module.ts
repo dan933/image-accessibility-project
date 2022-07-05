@@ -9,6 +9,12 @@ import { UploadPageComponent } from './components/upload-page/upload-page.compon
 import { DndDirective } from './directives/dnd.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { environment } from 'src/environments/environment';
+
+//firebase imports
+import { AngularFireModule } from '@angular/fire/compat';
+
+
 import { MaterialModule } from './modules/angular-modules';
 
 @NgModule({
@@ -21,6 +27,7 @@ import { MaterialModule } from './modules/angular-modules';
   ],
   imports: [
     BrowserModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule

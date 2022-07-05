@@ -32,6 +32,7 @@ export class UploadPageComponent implements OnInit {
 
       reader.onload = () => {
         this.imageSrc = reader.result as string;
+        localStorage.setItem("img", this.imageSrc)
       }
 
     }

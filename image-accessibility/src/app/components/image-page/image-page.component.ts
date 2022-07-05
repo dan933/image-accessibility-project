@@ -21,9 +21,7 @@ export class ImagePageComponent implements OnInit {
         speech_voices = window.speechSynthesis.getVoices();
       };
     }
-  }
 
-  getPhoto() {
   }
 
   speech(image: HTMLElement) {
