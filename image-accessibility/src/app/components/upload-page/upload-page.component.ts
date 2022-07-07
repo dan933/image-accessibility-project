@@ -24,7 +24,7 @@ export class UploadPageComponent implements OnInit {
 
     for (let index = 0; index < files.length; index++) {
 
-      const filePath = files[index].name;
+      const filePath = `images/${files[index].name}`;
       const task = this.storage.upload(filePath, files[index]);
       console.log(task)
     }
