@@ -38,7 +38,6 @@ export class ImagePageComponent implements OnInit {
 
   }
 
-  //todo change this so it gets the data from firestore
   getFileList() {
     const storageRef = this.storage.ref('images');
     storageRef.listAll()

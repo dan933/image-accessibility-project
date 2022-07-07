@@ -1,16 +1,29 @@
-<nav class="normal-nav">
-  <span class="nav-header">Image Accessibility Application</span>
-  <button routerLink='/images' routerLinkActive="activebutton" class="nav-button">Images</button>
-  <button routerLink='/upload' routerLinkActive="activebutton" class="nav-button">Upload</button>
-</nav>
+<mat-toolbar color="primary" class="normal-nav">
+  <mat-toolbar-row>
+    <span>Image App</span>
+    <button mat-flat-button color="primary" routerLink='/images' routerLinkActive="activebutton" class="nav-button">Images</button>
+  <button mat-flat-button color="primary" routerLink='/upload' routerLinkActive="activebutton" class="nav-button">Upload</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <div class="icon">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
+    </div>
+    <span>Image App</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 
 <nav class="compact-nav">
-  <div class="icon" #compactNav (click)="toggleMenu(compactNav)">
+  <div class="icon">
     <div class="bar1"></div>
     <div class="bar2"></div>
     <div class="bar3"></div>
   </div>
-  <span class="nav-compact-header">Image Accessibility Application</span>
+  <span class="nav-compact-header">Image Application</span>
 </nav>
 
 <div class="compact-nav-background"></div>
