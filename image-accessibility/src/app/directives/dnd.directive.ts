@@ -1,4 +1,5 @@
 import { Directive, HostBinding, HostListener } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Directive({
   selector: '[appDnd]'
@@ -8,7 +9,18 @@ export class DndDirective {
   @HostBinding('class.fileover')
   fileOver!: Boolean;
 
-  constructor() { }
+  constructor(
+    private storage: AngularFireStorage,
+  ) { }
+
+  uploadFile(files: FileList) {
+    console.log(files)
+    for (let index = 0; index < files.length; index++) {
+
+      const filePath = files[index].name;
+      const task = this.storage.upload(filePath, files[index]);
+    }
+  }
 
   //source https://medium.com/@tarekabdelkhalek/how-to-create-a-drag-and-drop-file-uploading-in-angular-78d9eba0b854
 
@@ -16,24 +28,25 @@ export class DndDirective {
   @HostListener('dragover', ['$event']) onDragOver(evt:Event) {
     evt.preventDefault();
     evt.stopPropagation();
-
-    console.log('Drag Over');
   }
 
   //Dragleave listener
   @HostListener('dragleave', ['$event']) public onDragLeave(evt:Event) {
     evt.preventDefault();
     evt.stopPropagation();
-
-    console.log('Drag Leave');
   }
 
   //Drop Listener
-  @HostListener('drop', ['$event']) public ondrop(evt:Event) {
+  @HostListener('drop', ['$event']) public ondrop(evt:any) {
     evt.preventDefault();
     evt.stopPropagation();
 
     this.fileOver = false;
+
+    const files = evt.dataTransfer.files as FileList;
+    if (files.length > 0) {
+      this.uploadFile(files)
+    }
   }
 
 

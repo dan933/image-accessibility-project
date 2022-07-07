@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 //firebase imports
-import { Storage, StorageInstances, getStorage, ref, uploadBytesResumable, FirebaseStorage } from '@angular/fire/storage';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-upload-page',
@@ -21,9 +20,14 @@ export class UploadPageComponent implements OnInit {
 
   uploadFile(event: Event) {
     const target = event.target as HTMLInputElement
-    const file = (target.files as FileList)[0];
-    const filePath = 'images';
-    const task = this.storage.upload(filePath, file);
+    const files = (target.files as FileList);
+
+    for (let index = 0; index < files.length; index++) {
+
+      const filePath = files[index].name;
+      const task = this.storage.upload(filePath, files[index]);
+      console.log(task)
+    }
   }
 
   ngOnInit(): void {
