@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 
 //firebase imports
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { Observable } from 'rxjs';
+
+export interface Image{
+  url?: string,
+  caption?:string
+}
 
 @Component({
   selector: 'app-upload-page',
@@ -11,11 +18,21 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 export class UploadPageComponent implements OnInit {
   imageSrc!: string;
 
+  private imageCollection: AngularFirestoreCollection<Image>;
+  images!: Observable<Image[]>;
+  image!: Image;
+
   constructor(
     private storage: AngularFireStorage,
+    private firestore: AngularFirestore
   )
   {
+    this.imageCollection = firestore.collection<Image>('Images');
+    this.images = this.imageCollection.valueChanges();
+  }
 
+  addImage(image: Image) {
+    this.imageCollection.add(image);
   }
 
   uploadFile(event: Event) {
@@ -24,35 +41,20 @@ export class UploadPageComponent implements OnInit {
 
     for (let index = 0; index < files.length; index++) {
 
+
       const filePath = `images/${files[index].name}`;
-      const task = this.storage.upload(filePath, files[index]);
-      console.log(task)
+      const task = this.storage.upload(filePath, files[index])
+        .then((resp) => {
+
+
+          resp.ref.getDownloadURL().then((url) => {
+            this.image = { url: url, caption: "" }
+          }).finally(() => { this.addImage(this.image) })
+        })
     }
   }
 
   ngOnInit(): void {
   }
 
-  fileBrowseHandler(files: Event) {
-
-    const reader = new FileReader();
-
-    //todo check image format
-
-    //gets images
-    const element = files.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-
-    //if not empty
-    if (fileList) {
-      reader.readAsDataURL(fileList[0]);
-      console.log("FileUpload -> files", fileList);
-
-      reader.onload = () => {
-        this.imageSrc = reader.result as string;
-        localStorage.setItem("img", this.imageSrc)
-      }
-
-    }
-  }
 }

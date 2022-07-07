@@ -4,13 +4,18 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
 // Firebase imports
 //import { Firestore, collectionData, collection } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage'
-import { listAll } from 'firebase/storage';
+import { listAll, updateMetadata } from 'firebase/storage';
 
 import { Observable } from 'rxjs';
 
 // export interface Car {
 //   Make:string
 // }
+
+export interface image {
+  url: string,
+  caption:string
+}
 
 
 @Component({
@@ -22,35 +27,31 @@ export class ImagePageComponent implements OnInit {
 
   //cars$!: Observable<Car[]>;
 
-  images: string[] = [];
+  images: image[] = [];
 
   constructor(
     private storage: AngularFireStorage
-    //firestore: Firestore
+    //private firestore: Firestore
   ) {
     //const data:any = collection(firestore, 'cars');
     //this.cars$ = collectionData(data);
 
   }
 
-  //This is where you store the file names and download url's
-filelist:any = []
+  //todo change this so it gets the data from firestore
+  getFileList() {
+    const storageRef = this.storage.ref('images');
+    storageRef.listAll()
+      .subscribe({
+        next: (resp) => {
+          resp.items.forEach((imageRef) => {
 
-//This is the function you call (put it in ngOnInit or something of the like) to get the filenames
-getFileList() {
-
-  const storageRef = this.storage.ref('images');
-
-  storageRef.listAll()
-    .subscribe({
-      next: (resp) => {
-        resp.items.forEach((imageRef) => {
-          imageRef.getDownloadURL().then((url) => {
-            this.images.push(url)
-          }).finally(() => {console.log(this.images)})
-        })
-      }
-  })
+            imageRef.getDownloadURL().then((url) => {
+              this.images.push({url:url, caption:"hi"})
+            })
+          })
+        }
+    })
 }
 
   speech_voices: any;

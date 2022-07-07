@@ -17,6 +17,7 @@ import { AngularFireStorageModule, BUCKET  } from '@angular/fire/compat/storage'
 import { AngularFireModule } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage'
+import { Firestore } from '@angular/fire/firestore';
 
 
 //angular materials import
@@ -33,6 +34,8 @@ import { MaterialModule } from './modules/angular-modules';
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
     AngularFireStorageModule,
     AppRoutingModule,
     BrowserAnimationsModule,
