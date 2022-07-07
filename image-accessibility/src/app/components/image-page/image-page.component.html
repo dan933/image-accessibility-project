@@ -1,5 +1,9 @@
 <div class="page-container">
 <img style="width:50vh;"src="../../../assets/images/photo-1525609004556-c46c7d6cf023.jpg" alt="I am a good car, I am a fast car, watch me go" #image (click)="speech(image)">
-<!-- <img [src]="image" *ngIf="image"> -->
+<ul>
+  <li *ngFor="let item of cars$ | async">
+    {{ item.Make }}
+  </li>
+</ul>
 </div>
 

@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
+
+// Firebase imports
+import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+
+export interface Car {
+  Make:string
+}
+
 
 @Component({
   selector: 'app-image-page',
@@ -7,9 +16,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ImagePageComponent implements OnInit {
 
-  image!: any;
+  cars$!: Observable<Car[]>;
 
-  constructor() { }
+  constructor(
+    firestore: Firestore
+  ) {
+    const data:any = collection(firestore, 'cars');
+    this.cars$ = collectionData(data);
+
+  }
 
   speech_voices: any;
 
