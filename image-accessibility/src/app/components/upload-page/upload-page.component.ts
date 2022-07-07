@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
-import { DndDirective } from '../../directives/dnd.directive';
+//firebase imports
+import { Storage, StorageInstances, getStorage, ref, uploadBytesResumable, FirebaseStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-upload-page',
@@ -10,7 +12,19 @@ import { DndDirective } from '../../directives/dnd.directive';
 export class UploadPageComponent implements OnInit {
   imageSrc!: string;
 
-  constructor() { }
+  constructor(
+    private storage: AngularFireStorage,
+  )
+  {
+
+  }
+
+  uploadFile(event: Event) {
+    const target = event.target as HTMLInputElement
+    const file = (target.files as FileList)[0];
+    const filePath = 'images';
+    const task = this.storage.upload(filePath, file);
+  }
 
   ngOnInit(): void {
   }

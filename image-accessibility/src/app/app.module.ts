@@ -12,8 +12,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
 
 //firebase imports
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp,  } from '@angular/fire/app';
+import { AngularFireStorageModule, BUCKET  } from '@angular/fire/compat/storage';
+import { AngularFireModule } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideStorage, getStorage } from '@angular/fire/storage'
 
 
 //angular materials import
@@ -29,14 +32,14 @@ import { MaterialModule } from './modules/angular-modules';
   ],
   imports: [
     BrowserModule,
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
-    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule
   ],
   providers: [
-
+    { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket }
   ],
   bootstrap: [AppComponent]
 })

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 
 // Firebase imports
 import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+
 import { Observable } from 'rxjs';
 
 export interface Car {
@@ -19,10 +20,10 @@ export class ImagePageComponent implements OnInit {
   cars$!: Observable<Car[]>;
 
   constructor(
-    firestore: Firestore
+    //firestore: Firestore
   ) {
-    const data:any = collection(firestore, 'cars');
-    this.cars$ = collectionData(data);
+    //const data:any = collection(firestore, 'cars');
+    //this.cars$ = collectionData(data);
 
   }
 
