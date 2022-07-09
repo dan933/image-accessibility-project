@@ -1,34 +1,14 @@
 <mat-toolbar color="primary" class="normal-nav">
-  <mat-toolbar-row>
+  <div fxHide.xs>
     <span>Image App</span>
     <button mat-flat-button color="primary" routerLink='/images' routerLinkActive="activebutton" class="nav-button">Images</button>
-  <button mat-flat-button color="primary" routerLink='/upload' routerLinkActive="activebutton" class="nav-button">Upload</button>
-  </mat-toolbar-row>
-</mat-toolbar>
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <div class="icon">
-      <div class="bar1"></div>
-      <div class="bar2"></div>
-      <div class="bar3"></div>
-    </div>
-    <span>Image App</span>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-
-<nav class="compact-nav">
-  <div class="icon">
-    <div class="bar1"></div>
-    <div class="bar2"></div>
-    <div class="bar3"></div>
+    <button mat-flat-button color="primary" routerLink='/upload' routerLinkActive="activebutton" class="nav-button">Upload</button>
   </div>
-  <span class="nav-compact-header">Image Application</span>
-</nav>
 
-<div class="compact-nav-background"></div>
-
-<div class="compact-sub-menu">
-  <button routerLink='/images' routerLinkActive="activebutton" class="nav-button">Images</button>
-  <button routerLink='/upload' routerLinkActive="activebutton" class="nav-button">Upload</button>
-</div>
+  <div fxHide.gt-xs class="compact-nav">
+    <button mat-icon-button (click)="onToggleSidenav()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span>Image App</span>
+  </div>
+</mat-toolbar>

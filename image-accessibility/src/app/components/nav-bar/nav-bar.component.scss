@@ -1,26 +1,5 @@
-//source https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_menu_icon_js
-    //------------- Hamburger button ------------------//
-    div.icon{
-      cursor: pointer;
-      width: min-content;
-      height: min-content;
-
-      div.bar1, div.bar2, div.bar3{
-        width: 5vh;
-        height: 0.8vh;
-        background-color: rgb(255, 255, 255);
-        margin: 1vh 1vh;
-        cursor:pointer;
-        transition: transform  0.4s;
-      }
-
-      &.change div.bar1 {
-        transform: rotate(-45deg) translate(-2vh, 2.4vh);
-      }
-
-      &.change div.bar2 {opacity: 0;}
-
-      &.change div.bar3 {
-        transform: rotate(45deg) translate(0vh, -0.5vh);
-      }
-    }
+.compact-nav{
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}

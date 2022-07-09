@@ -8,6 +8,7 @@ import { ImagePageComponent } from './components/image-page/image-page.component
 import { UploadPageComponent } from './components/upload-page/upload-page.component';
 import { DndDirective } from './directives/dnd.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { environment } from 'src/environments/environment';
 
@@ -22,6 +23,7 @@ import { Firestore } from '@angular/fire/firestore';
 
 //angular materials import
 import { MaterialModule } from './modules/angular-modules';
+import { SideNavListComponent } from './components/nav-bar/side-nav-list/side-nav-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { MaterialModule } from './modules/angular-modules';
     NavBarComponent,
     ImagePageComponent,
     UploadPageComponent,
-    DndDirective
+    DndDirective,
+    SideNavListComponent
   ],
   imports: [
     BrowserModule,
@@ -39,7 +42,8 @@ import { MaterialModule } from './modules/angular-modules';
     AngularFireStorageModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket }
