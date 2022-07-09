@@ -1,5 +1,6 @@
 .dropzone{
-  width: 450px;
+  max-width: 450px;
+  min-width: 250px;
   height: 200px;
   padding:2rem;
   text-align: center;
