@@ -1,2 +1,7 @@
-<p>manage-image-card works!</p>
-<h1>{{image.id}}</h1>
+<mat-card class="image-card">
+  <img mat-card-image src={{image.url}} alt="Photo of a Shiba Inu">
+  <mat-card-actions>
+    <button mat-button>Save</button>
+    <button mat-button>Delete</button>
+  </mat-card-actions>
+</mat-card>
