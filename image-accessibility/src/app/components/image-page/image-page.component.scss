@@ -1,0 +1,11 @@
+.example-card {
+  width: 400px;
+}
+
+.img-gallery-container{
+  display: flex;
+  column-gap: 10px;
+  row-gap: 10px;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}

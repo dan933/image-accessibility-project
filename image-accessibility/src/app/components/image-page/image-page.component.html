@@ -1,14 +1,12 @@
-<div class="page-container">
+<div class="page-container img-gallery-container">
 <!-- <img style="width:50vh;"src="../../../assets/images/photo-1525609004556-c46c7d6cf023.jpg" alt="I am a good car, I am a fast car, watch me go" #image (click)="speech(image)"> -->
 <div class="image-container" *ngFor="let image of images">
-  <img src={{image.url}} alt={{image.caption}}  #picture  (click)="speech(picture)">
+  <mat-card class="example-card">
+    <img mat-card-image src={{image.url}} alt={{image.caption}}  #picture  (click)="speech(picture)">
+    <mat-card-content>
+      <p>
+        {{image.caption}}
+      </p>
+    </mat-card-content>
+  </mat-card>
 </div>
-
-<!-- firestore example -->
-<!-- <ul> -->
-  <!-- <li *ngFor="let item of cars$ | async"> -->
-    <!-- {{ item.Make }} -->
-  <!-- </li> -->
-<!-- </ul> -->
-</div>
-
