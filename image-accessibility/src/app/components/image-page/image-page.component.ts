@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 // Firebase imports
-//import { Firestore, collectionData, collection } from '@angular/fire/firestore';
+import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage'
 import { listAll, updateMetadata } from 'firebase/storage';
 
@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 //   Make:string
 // }
 
-export interface image {
+export interface Image {
   url: string,
   caption:string
 }
@@ -27,36 +27,37 @@ export class ImagePageComponent implements OnInit {
 
   //cars$!: Observable<Car[]>;
 
-  images: image[] = [];
+  images$!: Observable<Image[]>;
+  images!: Image[];
 
   constructor(
-    private storage: AngularFireStorage
-    //private firestore: Firestore
+    private storage: AngularFireStorage,
+    private firestore: Firestore
   ) {
-    //const data:any = collection(firestore, 'cars');
-    //this.cars$ = collectionData(data);
+    const data:any = collection(firestore, 'Images');
+    this.images$ = collectionData(data);
 
   }
 
-  getFileList() {
-    const storageRef = this.storage.ref('images');
-    storageRef.listAll()
-      .subscribe({
-        next: (resp) => {
-          resp.items.forEach((imageRef) => {
+  // getFileList() {
+  //   const storageRef = this.storage.ref('images');
+  //   storageRef.listAll()
+  //     .subscribe({
+  //       next: (resp) => {
+  //         resp.items.forEach((imageRef) => {
 
-            imageRef.getDownloadURL().then((url) => {
-              this.images.push({url:url, caption:"hi"})
-            })
-          })
-        }
-    })
-}
+  //           imageRef.getDownloadURL().then((url) => {
+  //             this.images.push({url:url, caption:"hi"})
+  //           })
+  //         })
+  //       }
+  //   })
+  // }
 
   speech_voices: any;
 
   ngOnInit(): void {
-    this.getFileList();
+    this.images$.subscribe((resp) =>  this.images = resp)
     var speech_voices;
     if ('speechSynthesis' in window) {
       speech_voices = window.speechSynthesis.getVoices();

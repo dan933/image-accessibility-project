@@ -3,8 +3,6 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Observable } from 'rxjs';
 
-
-//todo improved nav bar
 //todo change images page from getting data from storage to fire store
 //todo add different captions to different images
 //todo fix responsiveness
