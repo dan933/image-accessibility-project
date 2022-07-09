@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
 
 export interface Image{
   url?: string,
-  caption?:string
+  caption?: string,
+  fileName?:string
 }
 
 @Component({
@@ -41,14 +42,11 @@ export class UploadPageComponent implements OnInit {
 
     for (let index = 0; index < files.length; index++) {
 
-
       const filePath = `images/${files[index].name}`;
       const task = this.storage.upload(filePath, files[index])
         .then((resp) => {
-
-
           resp.ref.getDownloadURL().then((url) => {
-            this.image = { url: url, caption: "" }
+            this.image = { url: url, caption: "", fileName:files[index].name }
           }).finally(() => { this.addImage(this.image) })
         })
     }

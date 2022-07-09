@@ -12,7 +12,8 @@ import { Observable } from 'rxjs';
 
 export interface Image{
   url?: string,
-  caption?:string
+  caption?: string,
+  fileName?:string
 }
 
 @Directive({
@@ -51,7 +52,7 @@ export class DndDirective {
 
 
           resp.ref.getDownloadURL().then((url) => {
-            this.image = { url: url, caption: "" }
+            this.image = { url: url, caption: "", fileName:files[index].name}
           }).finally(() => { this.addImage(this.image) })
         })
     }

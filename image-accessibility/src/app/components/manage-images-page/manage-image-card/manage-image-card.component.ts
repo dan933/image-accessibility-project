@@ -1,12 +1,16 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { collection, Firestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { provideStorage, getStorage } from '@angular/fire/storage'
+import { listAll, updateMetadata } from 'firebase/storage';
 import { Observable } from 'rxjs';
 
 export interface Image{
   id: string,
   url:string,
-  caption: string
+  caption: string,
+  fileName?:string
 }
 
 @Component({
@@ -26,13 +30,26 @@ export class ManageImageCardComponent implements OnInit {
   item!: Observable<Image|undefined>;
 
   constructor(
-    private afs: AngularFirestore
+    private afs: AngularFirestore,
+    private storage: AngularFireStorage,
   ) {
 
   }
 
   ngOnInit(): void {
     this.caption = this.image.caption;
+  }
+
+  getFileList() {
+    this.afs.collection('Images', ref => ref.where('fileName', '==', this.image.fileName)).valueChanges()
+    .subscribe(
+      (resp) => {
+        if (resp.length <= 0) {
+          const storageRef = this.storage.ref(`images/${this.image.fileName}`)
+          storageRef.delete();
+        }
+      }
+    )
   }
 
   saveCaption() {
@@ -43,7 +60,12 @@ export class ManageImageCardComponent implements OnInit {
 
   delete() {
     this.itemDoc = this.afs.doc<Image | undefined>(`Images/${this.image.id}`)
-    this.itemDoc.delete().then(resp => console.log(resp));
+    this.itemDoc.delete()
+      .finally(
+        () => {
+          this.getFileList()
+        }
+      );
   }
 
 }
