@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 // }
 
 export interface Image {
+  id:string,
   url: string,
   caption:string
 }
@@ -34,8 +35,8 @@ export class ImagePageComponent implements OnInit {
     private storage: AngularFireStorage,
     private firestore: Firestore
   ) {
-    const data:any = collection(firestore, 'Images');
-    this.images$ = collectionData(data);
+    const data: any = collection(this.firestore, 'Images');
+    this.images$ = collectionData(data, {idField:"id"});
 
   }
 
@@ -57,7 +58,7 @@ export class ImagePageComponent implements OnInit {
   speech_voices: any;
 
   ngOnInit(): void {
-    this.images$.subscribe((resp) =>  this.images = resp)
+    this.images$.subscribe((resp) =>  {this.images = resp, console.log(resp)})
     var speech_voices;
     if ('speechSynthesis' in window) {
       speech_voices = window.speechSynthesis.getVoices();

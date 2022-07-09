@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ImagePageComponent } from './components/image-page/image-page.component';
 import { UploadPageComponent } from './components/upload-page/upload-page.component';
-import { DndDirective } from './directives/dnd.directive';
+import { DndDirective } from './components/upload-page/directives/dnd.directive';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
@@ -17,13 +17,18 @@ import { provideFirebaseApp, initializeApp,  } from '@angular/fire/app';
 import { AngularFireStorageModule, BUCKET  } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-import { provideStorage, getStorage } from '@angular/fire/storage'
-import { Firestore } from '@angular/fire/firestore';
+
+
+//forms imports
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
+
 
 
 //angular materials import
 import { MaterialModule } from './modules/angular-modules';
 import { SideNavListComponent } from './components/nav-bar/side-nav-list/side-nav-list.component';
+import { ManageImagesPageComponent } from './components/manage-images-page/manage-images-page.component';
+import { ManageImageCardComponent } from './components/manage-images-page/manage-image-card/manage-image-card.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,9 @@ import { SideNavListComponent } from './components/nav-bar/side-nav-list/side-na
     ImagePageComponent,
     UploadPageComponent,
     DndDirective,
-    SideNavListComponent
+    SideNavListComponent,
+    ManageImagesPageComponent,
+    ManageImageCardComponent,
   ],
   imports: [
     BrowserModule,

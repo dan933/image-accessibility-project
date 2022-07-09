@@ -27,7 +27,7 @@ export class UploadPageComponent implements OnInit {
     private firestore: AngularFirestore
   )
   {
-    this.imageCollection = firestore.collection<Image>('Images');
+    this.imageCollection = this.firestore.collection<Image>('Images');
     this.images = this.imageCollection.valueChanges();
   }
 
