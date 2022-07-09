@@ -20,7 +20,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 
 
 //forms imports
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -40,6 +41,7 @@ import { ManageImageCardComponent } from './components/manage-images-page/manage
     SideNavListComponent,
     ManageImagesPageComponent,
     ManageImageCardComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,9 @@ import { ManageImageCardComponent } from './components/manage-images-page/manage
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket }

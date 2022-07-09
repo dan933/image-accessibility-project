@@ -36,7 +36,7 @@ export class ImagePageComponent implements OnInit {
     private firestore: Firestore
   ) {
     const data: any = collection(this.firestore, 'Images');
-    this.images$ = collectionData(data, {idField:"id"});
+    this.images$ = collectionData(data, { idField: "id" });
 
   }
 
