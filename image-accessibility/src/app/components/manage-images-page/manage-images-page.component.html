@@ -1,2 +1,4 @@
-<app-manage-image-card></app-manage-image-card>
+<ng-container *ngFor="let image of images">
+  <app-manage-image-card [image]="image"></app-manage-image-card>
+</ng-container>
 <!-- cards will be repeated here -->
