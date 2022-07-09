@@ -6,8 +6,8 @@
         <mat-label>Type the words to say</mat-label>
         <textarea value={{image.caption}} matInput placeholder="Ex. Hello this is a car..." [(ngModel)]="caption" name="caption"></textarea>
       </mat-form-field>
-      <button mat-button (click)="saveCaption()">Save</button>
-      <button mat-button>Delete</button>
+      <button mat-button (click)="saveCaption()">Save Caption</button>
+      <button mat-button (click)="delete()">Delete Image</button>
     </form>
   </mat-card-actions>
 </mat-card>

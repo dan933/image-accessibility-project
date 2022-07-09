@@ -23,13 +23,12 @@ export class ManageImageCardComponent implements OnInit {
   caption!: string;
 
   private itemDoc!: AngularFirestoreDocument<Image|undefined>;
-  item: Observable<Image|undefined>;
+  item!: Observable<Image|undefined>;
 
   constructor(
     private afs: AngularFirestore
   ) {
-    this.itemDoc = afs.doc<Image|undefined>('Images/kobnjb8OP3UfR27PD9Ku')
-    this.item = this.itemDoc.valueChanges()
+
   }
 
   ngOnInit(): void {
@@ -37,7 +36,14 @@ export class ManageImageCardComponent implements OnInit {
   }
 
   saveCaption() {
-    this.itemDoc.update({caption:this.caption})
+    this.itemDoc = this.afs.doc<Image|undefined>(`Images/${this.image.id}`)
+    this.item = this.itemDoc.valueChanges()
+    this.itemDoc.update({ caption: this.caption })
+  }
+
+  delete() {
+    this.itemDoc = this.afs.doc<Image | undefined>(`Images/${this.image.id}`)
+    this.itemDoc.delete().then(resp => console.log(resp));
   }
 
 }
