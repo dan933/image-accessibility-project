@@ -13,7 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { environment } from 'src/environments/environment';
 
 //firebase imports
-import { provideFirebaseApp, initializeApp,  } from '@angular/fire/app';
+import { provideFirebaseApp, initializeApp  } from '@angular/fire/app';
 import { AngularFireStorageModule, BUCKET  } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -30,6 +30,7 @@ import { MaterialModule } from './modules/angular-modules';
 import { SideNavListComponent } from './components/nav-bar/side-nav-list/side-nav-list.component';
 import { ManageImagesPageComponent } from './components/manage-images-page/manage-images-page.component';
 import { ManageImageCardComponent } from './components/manage-images-page/manage-image-card/manage-image-card.component';
+import { initializeAppCheck, provideAppCheck, ReCaptchaV3Provider } from '@angular/fire/app-check';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,11 @@ import { ManageImageCardComponent } from './components/manage-images-page/manage
     AngularFireModule.initializeApp(environment.firebaseConfig),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    provideAppCheck(() => {
+      const provider = new ReCaptchaV3Provider(environment.recaptcha3SiteKey);
+      return initializeAppCheck(undefined, { provider, isTokenAutoRefreshEnabled: true });
+    }
+    ),
     AngularFireStorageModule,
     AppRoutingModule,
     BrowserAnimationsModule,
