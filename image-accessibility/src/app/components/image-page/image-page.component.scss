@@ -1,12 +1,11 @@
-.image-container{
-  width: 100%;
-  max-width: 400px;
+.example-card {
+  width: 400px;
 }
 
 .img-gallery-container{
   display: flex;
-  column-gap: 14px;
+  column-gap: 10px;
   row-gap: 10px;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
