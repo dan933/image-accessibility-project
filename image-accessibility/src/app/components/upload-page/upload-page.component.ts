@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { UserInfo } from 'firebase/auth';
 
 export interface Image{
   url?: string,
@@ -19,17 +21,25 @@ export interface Image{
 export class UploadPageComponent implements OnInit {
   imageSrc!: string;
 
-  private imageCollection: AngularFirestoreCollection<Image>;
+  private imageCollection!: AngularFirestoreCollection<Image>;
   images!: Observable<Image[]>;
   image!: Image;
+  currentUser!: UserInfo;
 
   constructor(
     private storage: AngularFireStorage,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private afAuth: AngularFireAuth
   )
   {
-    this.imageCollection = this.firestore.collection<Image>('Images');
-    this.images = this.imageCollection.valueChanges();
+    this.afAuth.currentUser.then((user) => {
+      if (user) {
+        this.currentUser = user;
+        this.imageCollection = this.firestore.collection<Image>(`Users/${this.currentUser.uid}/Images`);
+        this.images = this.imageCollection.valueChanges();
+      }
+    })
+
   }
 
   addImage(image: Image) {
@@ -42,7 +52,7 @@ export class UploadPageComponent implements OnInit {
 
     for (let index = 0; index < files.length; index++) {
 
-      const filePath = `images/${files[index].name}`;
+      const filePath = `users/${this.currentUser.uid}/images/${files[index].name}`;
       const task = this.storage.upload(filePath, files[index])
         .then((resp) => {
           resp.ref.getDownloadURL().then((url) => {

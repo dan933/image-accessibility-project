@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { UserInfo } from 'firebase/auth';
 import { Observable } from 'rxjs';
 
 export interface Image {
@@ -18,13 +20,21 @@ export class ManageImagesPageComponent implements OnInit {
 
   images$!: Observable<Image[]>;
   images!: Image[];
+  currentUser!: UserInfo;
 
   constructor(
-    //private storage: AngularFireStorage,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private afAuth: AngularFireAuth
+
   ) {
-    const data: any = collection(this.firestore, 'Images');
-    this.images$ = collectionData(data, {idField:"id"});
+    this.afAuth.currentUser.then((user) => {
+      if (user) {
+        this.currentUser = user;
+        const data: any = collection(this.firestore, `Users/${this.currentUser.uid}/Images`);
+        this.images$ = collectionData(data, {idField:"id"});
+      }
+    })
+
    }
 
   ngOnInit(): void {

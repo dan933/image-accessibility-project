@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core'
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 // Firebase imports
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage'
+import { UserInfo } from 'firebase/auth';
 import { listAll, updateMetadata } from 'firebase/storage';
 
 import { Observable } from 'rxjs';
@@ -30,13 +32,21 @@ export class ImagePageComponent implements OnInit {
 
   images$!: Observable<Image[]>;
   images!: Image[];
+  currentUser!: UserInfo;
 
   constructor(
     private storage: AngularFireStorage,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private afAuth: AngularFireAuth
   ) {
-    const data: any = collection(this.firestore, 'Images');
-    this.images$ = collectionData(data, { idField: "id" });
+    this.afAuth.currentUser.then((user) => {
+      if (user) {
+        this.currentUser = user;
+        const data: any = collection(this.firestore, `Users/${this.currentUser.uid}/Images`);
+        this.images$ = collectionData(data, { idField: "id" });
+      }
+    })
+
 
   }
 
@@ -51,7 +61,6 @@ export class ImagePageComponent implements OnInit {
         speech_voices = window.speechSynthesis.getVoices();
       };
     }
-
   }
 
   speech(image: HTMLElement) {
