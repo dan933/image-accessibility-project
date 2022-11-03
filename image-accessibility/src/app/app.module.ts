@@ -17,6 +17,8 @@ import { provideFirebaseApp, initializeApp  } from '@angular/fire/app';
 import { AngularFireStorageModule, BUCKET  } from '@angular/fire/compat/storage';
 import { AngularFireModule } from '@angular/fire/compat';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { provideAuth, getAuth } from '@angular/fire/auth';
+import { SETTINGS as AUTH_SETTINGS } from '@angular/fire/compat/auth';
 
 
 //forms imports
@@ -30,7 +32,6 @@ import { MaterialModule } from './modules/angular-modules';
 import { SideNavListComponent } from './components/nav-bar/side-nav-list/side-nav-list.component';
 import { ManageImagesPageComponent } from './components/manage-images-page/manage-images-page.component';
 import { ManageImageCardComponent } from './components/manage-images-page/manage-image-card/manage-image-card.component';
-import { initializeAppCheck, provideAppCheck, ReCaptchaV3Provider } from '@angular/fire/app-check';
 
 @NgModule({
   declarations: [
@@ -41,13 +42,14 @@ import { initializeAppCheck, provideAppCheck, ReCaptchaV3Provider } from '@angul
     DndDirective,
     SideNavListComponent,
     ManageImagesPageComponent,
-    ManageImageCardComponent,
+    ManageImageCardComponent
 
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     AngularFireStorageModule,
     AppRoutingModule,
@@ -58,7 +60,8 @@ import { initializeAppCheck, provideAppCheck, ReCaptchaV3Provider } from '@angul
     ReactiveFormsModule
   ],
   providers: [
-    { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket }
+    { provide: BUCKET, useValue: environment.firebaseConfig.storageBucket },
+    { provide: AUTH_SETTINGS, useValue: { appVerificationDisabledForTesting: true }}
   ],
   bootstrap: [AppComponent]
 })

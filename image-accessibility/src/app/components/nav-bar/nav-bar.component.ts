@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
-//test
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,13 +11,23 @@ export class NavBarComponent implements OnInit {
 
   @Output() public sidenavToggle = new EventEmitter();
 
-  constructor() { }
+  constructor(
+    public afAuth: AngularFireAuth,
+    private router: Router
+  ) { }
 
 
   ngOnInit(): void {
   }
 
+  signOut() {
+    this.afAuth.signOut().then(() => {
+      this.router.navigate(['/login'])
+    })
+  }
+
   public onToggleSidenav() {
     this.sidenavToggle.emit();
   }
+
 }
