@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 // Firebase imports
 import { collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage'
+import { UserInfo } from 'firebase/auth';
 import { listAll, updateMetadata } from 'firebase/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 // export interface Car {
 //   Make:string
@@ -24,32 +26,45 @@ export interface Image {
   templateUrl: './image-page.component.html',
   styleUrls: ['./image-page.component.scss']
 })
-export class ImagePageComponent implements OnInit {
+export class ImagePageComponent implements OnInit, OnDestroy {
 
-  //cars$!: Observable<Car[]>;
-
+  imagesSubscription!: Subscription;
   images$!: Observable<Image[]>;
   images!: Image[];
+  currentUser!: UserInfo;
 
   constructor(
     private storage: AngularFireStorage,
-    private firestore: Firestore
+    private firestore: Firestore,
+    private afAuth: AngularFireAuth
   ) {
-    const data: any = collection(this.firestore, 'Images');
-    this.images$ = collectionData(data, { idField: "id" });
+    this.afAuth.currentUser.then((user) => {
+      if (user) {
+        this.currentUser = user;
+        const data: any = collection(this.firestore, `Users/${this.currentUser.uid}/Images`);
+        this.images$ = collectionData(data, { idField: "id" });
+      }
+    })
+
 
   }
 
-  speech_voices: any;
+  speech_voices!: SpeechSynthesis;
 
   ngOnInit(): void {
-    this.images$.subscribe((resp) =>  {this.images = resp})
+    this.imagesSubscription = this.images$.subscribe((resp) =>  {this.images = resp})
     var speech_voices;
     if ('speechSynthesis' in window) {
       speech_voices = window.speechSynthesis.getVoices();
       window.speechSynthesis.onvoiceschanged = function() {
         speech_voices = window.speechSynthesis.getVoices();
       };
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.imagesSubscription) {
+      this.imagesSubscription.unsubscribe()
     }
 
   }
@@ -59,7 +74,7 @@ export class ImagePageComponent implements OnInit {
     let speech = new SpeechSynthesisUtterance(soundToPlay);
     speech.pitch = 1;
     speech.rate = 1;
-    speech.voice = this.chooseSpeechVoice(2);
+    speech.voice = this.chooseSpeechVoice(6);
     speechSynthesis.speak(speech);
   }
 

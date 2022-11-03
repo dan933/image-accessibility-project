@@ -1,7 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
+import { UserInfo } from 'firebase/auth';
 import { Observable } from 'rxjs';
+import { SnackService } from 'src/app/services/snack.service';
 
 export interface Image{
   id: string,
@@ -24,12 +27,21 @@ export class ManageImageCardComponent implements OnInit {
   caption!: string;
 
   private itemDoc!: AngularFirestoreDocument<Image|undefined>;
-  item!: Observable<Image|undefined>;
+  item!: Observable<Image | undefined>;
+  currentUser!: UserInfo;
 
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFireStorage,
+    private afAuth: AngularFireAuth,
+    public snackService:SnackService
   ) {
+
+    this.afAuth.currentUser.then((user) => {
+      if (user) {
+        this.currentUser = user;
+      }
+    })
 
   }
 
@@ -38,11 +50,11 @@ export class ManageImageCardComponent implements OnInit {
   }
 
   getFileList() {
-    this.afs.collection('Images', ref => ref.where('fileName', '==', this.image.fileName)).valueChanges()
+    this.afs.collection(`Users/${this.currentUser.uid}/Images`, ref => ref.where('fileName', '==', this.image.fileName)).valueChanges()
     .subscribe(
       (resp) => {
         if (resp.length <= 0) {
-          const storageRef = this.storage.ref(`images/${this.image.fileName}`)
+          const storageRef = this.storage.ref(`users/${this.currentUser.uid}/images/${this.image.fileName}`)
           storageRef.delete();
         }
       }
@@ -50,17 +62,20 @@ export class ManageImageCardComponent implements OnInit {
   }
 
   saveCaption() {
-    this.itemDoc = this.afs.doc<Image|undefined>(`Images/${this.image.id}`)
+    this.itemDoc = this.afs.doc<Image|undefined>(`Users/${this.currentUser.uid}/Images/${this.image.id}`)
     this.item = this.itemDoc.valueChanges()
-    this.itemDoc.update({ caption: this.caption })
+    this.itemDoc.update({ caption: this.caption }).finally(() => {
+      this.snackService.userMessage("Card Updated")
+    })
   }
 
   delete() {
-    this.itemDoc = this.afs.doc<Image | undefined>(`Images/${this.image.id}`)
+    this.itemDoc = this.afs.doc<Image | undefined>(`Users/${this.currentUser.uid}/Images/${this.image.id}`)
     this.itemDoc.delete()
       .finally(
         () => {
           this.getFileList()
+          this.snackService.userMessage("Card Deleted")
         }
       );
   }

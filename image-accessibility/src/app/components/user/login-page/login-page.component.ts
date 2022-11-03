@@ -20,4 +20,16 @@ export class LoginPageComponent {
     })
   }
 
+  async demoLogin() {
+    this.afAuth.signInWithEmailAndPassword("test@test.com", "test@test.com")
+      .then((resp) => {
+        this.afAuth.onAuthStateChanged((user) => {
+              if (user) {
+                this.router.navigate(['/images'])
+              }
+            })
+          }).catch((err) => console.error('err', err));
+  }
+
+
 }

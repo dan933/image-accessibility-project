@@ -1,25 +1,35 @@
 .card {
-  width: 400px;
-  height: 400px;
-  overflow: auto;
+  max-width: 80vw;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   .card-img{
+    max-width: 80vw;
     width: 300px;
     height: auto;
   }
 
   .mat-card-content{
+    max-width: 80vw;
+    width: 400px;
+    height: auto;
+    overflow-y: auto;
+
     p {
+      line-height: 50px;
       font-size: 30px;
     }
   }
+
+  .mat-card-actions{
+    margin-top: auto;
+  }
 }
 
-.img-gallery-container{
+.image-container{
   display: flex;
   column-gap: 10px;
   row-gap: 10px;

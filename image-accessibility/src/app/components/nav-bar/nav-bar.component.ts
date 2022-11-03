@@ -20,8 +20,8 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signOut() {
-    this.afAuth.signOut().then(() => {
+  async signOut() {
+    await this.afAuth.signOut().then(() => {
       this.router.navigate(['/login'])
     })
   }
