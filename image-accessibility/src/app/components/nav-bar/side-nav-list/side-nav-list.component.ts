@@ -19,11 +19,11 @@ export class SideNavListComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onSidenavClose = () => {
+  onSidenavClose = () => {
     this.sidenavClose.emit();
   }
 
-  public logout = async () => {
+  logout = async () => {
     this.afAuth.signOut().finally(() => {
       this.sidenavClose.emit();
       this.router.navigate(['/login'])

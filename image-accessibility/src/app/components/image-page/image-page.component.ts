@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 
@@ -8,7 +8,7 @@ import { provideStorage, getStorage } from '@angular/fire/storage'
 import { UserInfo } from 'firebase/auth';
 import { listAll, updateMetadata } from 'firebase/storage';
 
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 // export interface Car {
 //   Make:string
@@ -26,10 +26,9 @@ export interface Image {
   templateUrl: './image-page.component.html',
   styleUrls: ['./image-page.component.scss']
 })
-export class ImagePageComponent implements OnInit {
+export class ImagePageComponent implements OnInit, OnDestroy {
 
-  //cars$!: Observable<Car[]>;
-
+  imagesSubscription!: Subscription;
   images$!: Observable<Image[]>;
   images!: Image[];
   currentUser!: UserInfo;
@@ -53,7 +52,7 @@ export class ImagePageComponent implements OnInit {
   speech_voices: any;
 
   ngOnInit(): void {
-    this.images$.subscribe((resp) =>  {this.images = resp})
+    this.imagesSubscription = this.images$.subscribe((resp) =>  {this.images = resp})
     var speech_voices;
     if ('speechSynthesis' in window) {
       speech_voices = window.speechSynthesis.getVoices();
@@ -61,6 +60,13 @@ export class ImagePageComponent implements OnInit {
         speech_voices = window.speechSynthesis.getVoices();
       };
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.imagesSubscription) {
+      this.imagesSubscription.unsubscribe()
+    }
+
   }
 
   speech(image: HTMLElement) {

@@ -1,12 +1,18 @@
-<div class="page-container img-gallery-container">
-  <div class="image-container" *ngFor="let image of images">
-    <mat-card class="card">
+<div class="page-container">
+  <div class="image-container">
+    <mat-card class="card" *ngFor="let image of images">
       <img class="card-img" mat-card-image src={{image.url}} alt={{image.caption}}  #picture  (click)="speech(picture)">
       <mat-card-content>
-        <p>
-          {{image.caption}}
-        </p>
+          <p>
+            {{image.caption}}
+          </p>
       </mat-card-content>
+      <mat-card-actions>
+        <button mat-flat-button color="primary" (click)="speech(picture)">Speak</button>
+      </mat-card-actions>
     </mat-card>
+  </div>
+  <div class="container-center" *ngIf="!images?.length">
+    <h1>Please Upload Images</h1>
   </div>
 </div>

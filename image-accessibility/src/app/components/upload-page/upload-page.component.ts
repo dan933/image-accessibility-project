@@ -6,6 +6,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { UserInfo } from 'firebase/auth';
+import { SnackService } from 'src/app/services/snack.service';
 
 export interface Image{
   url?: string,
@@ -29,7 +30,8 @@ export class UploadPageComponent implements OnInit {
   constructor(
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public snackService:SnackService
   )
   {
     this.afAuth.currentUser.then((user) => {
@@ -51,14 +53,23 @@ export class UploadPageComponent implements OnInit {
     const files = (target.files as FileList);
 
     for (let index = 0; index < files.length; index++) {
+        console.log(files[index].type.includes("image"))
+      if (files[index].type.includes("image")) {
+        const filePath = `users/${this.currentUser.uid}/images/${files[index].name}`;
+        const task = this.storage.upload(filePath, files[index])
+          .then((resp) => {
+            resp.ref.getDownloadURL().then((url) => {
+              this.image = { url: url, caption: "", fileName:files[index].name }
+            }).finally(() => {
+              this.addImage(this.image)
+              this.snackService.userMessage("Image Uploaded")
+            })
+          })
+      } else {
+        console.log('file must be an image')
+      }
 
-      const filePath = `users/${this.currentUser.uid}/images/${files[index].name}`;
-      const task = this.storage.upload(filePath, files[index])
-        .then((resp) => {
-          resp.ref.getDownloadURL().then((url) => {
-            this.image = { url: url, caption: "", fileName:files[index].name }
-          }).finally(() => { this.addImage(this.image) })
-        })
+
     }
   }
 

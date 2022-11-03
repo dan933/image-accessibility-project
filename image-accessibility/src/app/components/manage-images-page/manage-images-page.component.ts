@@ -38,7 +38,7 @@ export class ManageImagesPageComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.images$.subscribe((resp) =>  {this.images = resp, console.log(resp)})
+    this.images$.subscribe((resp) =>  {this.images = resp})
   }
 
 }

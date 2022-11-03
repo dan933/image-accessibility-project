@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { UserInfo } from 'firebase/auth';
 import { Observable } from 'rxjs';
+import { SnackService } from 'src/app/services/snack.service';
 
 export interface Image{
   id: string,
@@ -32,7 +33,8 @@ export class ManageImageCardComponent implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private storage: AngularFireStorage,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public snackService:SnackService
   ) {
 
     this.afAuth.currentUser.then((user) => {
@@ -62,7 +64,9 @@ export class ManageImageCardComponent implements OnInit {
   saveCaption() {
     this.itemDoc = this.afs.doc<Image|undefined>(`Users/${this.currentUser.uid}/Images/${this.image.id}`)
     this.item = this.itemDoc.valueChanges()
-    this.itemDoc.update({ caption: this.caption })
+    this.itemDoc.update({ caption: this.caption }).finally(() => {
+      this.snackService.userMessage("Card Updated")
+    })
   }
 
   delete() {
@@ -71,6 +75,7 @@ export class ManageImageCardComponent implements OnInit {
       .finally(
         () => {
           this.getFileList()
+          this.snackService.userMessage("Card Deleted")
         }
       );
   }

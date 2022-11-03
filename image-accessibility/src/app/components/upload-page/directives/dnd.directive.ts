@@ -4,6 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/comp
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { UserInfo } from 'firebase/auth';
 import { Observable } from 'rxjs';
+import { SnackService } from 'src/app/services/snack.service';
 
 //todo add different captions to different images
 //todo cards for the images page
@@ -32,7 +33,8 @@ export class DndDirective {
   constructor(
     private storage: AngularFireStorage,
     private firestore: AngularFirestore,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public snackService:SnackService
   ) {
     this.afAuth.currentUser.then((user) => {
 
@@ -61,7 +63,10 @@ export class DndDirective {
 
           resp.ref.getDownloadURL().then((url) => {
             this.image = { url: url, caption: "", fileName:files[index].name}
-          }).finally(() => { this.addImage(this.image) })
+          }).finally(() => {
+            this.addImage(this.image)
+            this.snackService.userMessage("Image Uploaded")
+          })
         })
     }
   }

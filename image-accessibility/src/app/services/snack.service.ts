@@ -13,6 +13,10 @@ export class SnackService {
     private router: Router
   ) { }
 
+  userMessage(message:string) {
+    this.snackBar.open(message,undefined,{duration:5000})
+  }
+
   authError() {
     this.snackBar.open('Please wait Authenticating..', 'Ok', {
       duration: 500

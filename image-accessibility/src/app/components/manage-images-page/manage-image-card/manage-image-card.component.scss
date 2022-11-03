@@ -5,11 +5,12 @@
   align-items: center;
   width: 400px;
   height: 400px;
-  max-width: 400px;
+  max-width: 80vw;
   max-height: 400px;
   overflow: auto;
 
   .img-card {
+    max-width: 80vw;
     height: auto;
     width: 300px;
     overflow: auto;

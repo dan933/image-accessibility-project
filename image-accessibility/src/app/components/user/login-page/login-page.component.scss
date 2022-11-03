@@ -21,3 +21,11 @@ div{
   max-width: fit-content;
   padding: 7px;
 }
+
+.login-button-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+}
