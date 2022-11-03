@@ -49,7 +49,7 @@ export class ImagePageComponent implements OnInit, OnDestroy {
 
   }
 
-  speech_voices: any;
+  speech_voices!: SpeechSynthesis;
 
   ngOnInit(): void {
     this.imagesSubscription = this.images$.subscribe((resp) =>  {this.images = resp})
@@ -58,11 +58,13 @@ export class ImagePageComponent implements OnInit, OnDestroy {
       speech_voices = window.speechSynthesis.getVoices();
       window.speechSynthesis.onvoiceschanged = function() {
         speech_voices = window.speechSynthesis.getVoices();
+        console.log(speech_voices)
       };
     }
   }
 
   ngOnDestroy(): void {
+    this.speech_voices.cancel();
     if (this.imagesSubscription) {
       this.imagesSubscription.unsubscribe()
     }
@@ -74,7 +76,7 @@ export class ImagePageComponent implements OnInit, OnDestroy {
     let speech = new SpeechSynthesisUtterance(soundToPlay);
     speech.pitch = 1;
     speech.rate = 1;
-    speech.voice = this.chooseSpeechVoice(2);
+    speech.voice = this.chooseSpeechVoice(6);
     speechSynthesis.speak(speech);
   }
 
