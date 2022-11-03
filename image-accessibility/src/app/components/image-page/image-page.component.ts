@@ -40,25 +40,10 @@ export class ImagePageComponent implements OnInit {
 
   }
 
-  // getFileList() {
-  //   const storageRef = this.storage.ref('images');
-  //   storageRef.listAll()
-  //     .subscribe({
-  //       next: (resp) => {
-  //         resp.items.forEach((imageRef) => {
-
-  //           imageRef.getDownloadURL().then((url) => {
-  //             this.images.push({url:url, caption:"hi"})
-  //           })
-  //         })
-  //       }
-  //   })
-  // }
-
   speech_voices: any;
 
   ngOnInit(): void {
-    this.images$.subscribe((resp) =>  {this.images = resp, console.log(resp)})
+    this.images$.subscribe((resp) =>  {this.images = resp})
     var speech_voices;
     if ('speechSynthesis' in window) {
       speech_voices = window.speechSynthesis.getVoices();
@@ -75,16 +60,12 @@ export class ImagePageComponent implements OnInit {
     speech.pitch = 1;
     speech.rate = 1;
     speech.voice = this.chooseSpeechVoice(2);
-    console.log(speech.voice)
-
     speechSynthesis.speak(speech);
   }
 
   chooseSpeechVoice(index: number) {
     let voice = speechSynthesis.getVoices()[index];
-    console.log(voice)
     return voice;
-
   }
 
 }

@@ -1,7 +1,33 @@
 .image-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 400px;
+  height: 400px;
   max-width: 400px;
+  max-height: 400px;
+  overflow: auto;
+
+  .img-card {
+    height: auto;
+    width: 300px;
+    overflow: auto;
+  }
 }
 
-.full-width {
+.mat-card-actions{
+  margin-top: auto;
+}
+
+.form-field{
   width: 100%;
+  overflow: auto;
+}
+
+.tex-input {
+  width: 100%;
+  height: 50px;
+  overflow: auto;
+  resize: none;
 }

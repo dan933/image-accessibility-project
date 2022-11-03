@@ -49,11 +49,6 @@ import { initializeAppCheck, provideAppCheck, ReCaptchaV3Provider } from '@angul
     AngularFireModule.initializeApp(environment.firebaseConfig),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
-    provideAppCheck(() => {
-      const provider = new ReCaptchaV3Provider(environment.recaptcha3SiteKey);
-      return initializeAppCheck(undefined, { provider, isTokenAutoRefreshEnabled: true });
-    }
-    ),
     AngularFireStorageModule,
     AppRoutingModule,
     BrowserAnimationsModule,

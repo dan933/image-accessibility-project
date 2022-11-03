@@ -1,9 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
-import { collection, Firestore } from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { provideStorage, getStorage } from '@angular/fire/storage'
-import { listAll, updateMetadata } from 'firebase/storage';
 import { Observable } from 'rxjs';
 
 export interface Image{

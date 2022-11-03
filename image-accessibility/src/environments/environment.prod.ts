@@ -1,13 +1,13 @@
 export const environment = {
   production: true,
 
-  firebaseConfig: {
-    apiKey: "AIzaSyBIhVW6rNdibTtrdp_tiS11rvVg9le6JZE",
-    authDomain: "image-application-1.firebaseapp.com",
-    projectId: "image-application-1",
-    storageBucket: "image-application-1.appspot.com",
-    messagingSenderId: "1090117793318",
-    appId: "1:1090117793318:web:a1ab52a923bedde7a198e7",
-    measurementId: "G-2YKXWZQBXF"
+  firebaseConfig:{
+    apiKey: "AIzaSyCPwNDxcRa5Az_hgO46tC6IIlxCeLqwQZE",
+    authDomain: "image-learn-app.firebaseapp.com",
+    projectId: "image-learn-app",
+    storageBucket: "image-learn-app.appspot.com",
+    messagingSenderId: "476977575335",
+    appId: "1:476977575335:web:5d6b7c2ca4cf463dc8f282",
+    measurementId: "G-V9TQ6SF8RB"
   }
 };

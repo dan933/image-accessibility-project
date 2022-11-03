@@ -1,13 +1,11 @@
 <mat-card class="image-card">
-  <img mat-card-image src={{image.url}} alt="Photo of a Shiba Inu">
+  <img class="img-card" mat-card-image src={{image.url}} alt="Photo of a Shiba Inu">
   <mat-card-actions>
-    <form>
-      <mat-form-field class="full-width" appearance="fill">
+      <mat-form-field class="form-field" appearance="fill">
         <mat-label>Type the words to say</mat-label>
-        <textarea value={{image.caption}} matInput placeholder="Ex. Hello this is a car..." [(ngModel)]="caption" name="caption"></textarea>
+        <textarea class="tex-input" value={{image.caption}} matInput placeholder="Ex. Hello this is a car..." [(ngModel)]="caption" name="caption"></textarea>
       </mat-form-field>
-      <button mat-button (click)="saveCaption()">Save Caption</button>
-      <button mat-button (click)="delete()">Delete Image</button>
-    </form>
+    <button mat-button (click)="saveCaption()">Save Caption</button>
+    <button mat-button (click)="delete()">Delete Image</button>
   </mat-card-actions>
 </mat-card>
