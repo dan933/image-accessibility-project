@@ -28,7 +28,7 @@ export class LoginPageComponent {
                 this.router.navigate(['/images'])
               }
             })
-          }).catch((err) => console.log('err', err));
+          }).catch((err) => console.error('err', err));
   }
 
 

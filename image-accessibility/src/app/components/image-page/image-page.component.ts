@@ -58,13 +58,11 @@ export class ImagePageComponent implements OnInit, OnDestroy {
       speech_voices = window.speechSynthesis.getVoices();
       window.speechSynthesis.onvoiceschanged = function() {
         speech_voices = window.speechSynthesis.getVoices();
-        console.log(speech_voices)
       };
     }
   }
 
   ngOnDestroy(): void {
-    this.speech_voices.cancel();
     if (this.imagesSubscription) {
       this.imagesSubscription.unsubscribe()
     }

@@ -53,7 +53,6 @@ export class UploadPageComponent implements OnInit {
     const files = (target.files as FileList);
 
     for (let index = 0; index < files.length; index++) {
-        console.log(files[index].type.includes("image"))
       if (files[index].type.includes("image")) {
         const filePath = `users/${this.currentUser.uid}/images/${files[index].name}`;
         const task = this.storage.upload(filePath, files[index])
