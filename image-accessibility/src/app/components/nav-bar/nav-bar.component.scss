@@ -6,9 +6,22 @@
   position: fixed;
 }
 
-.normal-nav{
+.nav-container{
   z-index: 2;
   position: fixed;
+}
+
+.normal-nav{
+  display: flex;
+  width: 100vw;
+
+  .nav-button{
+    margin-left: 10px;
+  }
+}
+
+.logout-button{
+  margin-left: auto;
 }
 
 
@@ -18,7 +31,4 @@ mat-toolbar{
     color: black;
   }
 
-  button{
-    margin-left: 10px;
-  }
 }
